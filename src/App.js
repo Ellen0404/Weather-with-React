@@ -48,7 +48,19 @@ const App = () => {
       </Row>
       <Row>
         <Col>
-          <DayDetails />
+          {selectedDay ? (
+            <DayDetails
+              day={moment(selectedDay.valid_date, "YYYY-MM-DD").format("dddd, MMMM Do,YYYY")}
+              temp={selectedDay.temp}
+              icon={selectedDay.weather.icon}
+              description={selectedDay.weather.description}
+              high={selectedDay.high_temp}
+              low={selectedDay.low_temp}
+              precip={selectedDay.pop}
+            />
+          ) : (
+              <h3>Click on a day above to view details!</h3>
+            )}
         </Col>
       </Row>
 
