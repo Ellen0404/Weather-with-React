@@ -40,8 +40,9 @@ const App = () => {
             description={day.weather.description}
             high={day.high_temp}
             low={day.low_temp}
-            precip={day.precip}
-
+            precip={day.pop}
+            isSelected={day === selectedDay}
+            selectDay={() => setWeatherInfo({ ...weatherinfo, selectedDay: day })}
           />
         ))}
       </Row>
