@@ -9,7 +9,15 @@ const SearchBar = props => {
         <FormWrapper inline>
             <FormGroup>
                 <Label for="searchTerm" hidden>Location Search</Label>
-                <Input type="text" name="searchTerm" id="searchTerm" placeholder="Denver, CO OR Statue of Liberty OR 80112" />
+                <Input
+                    //3 things we shound have :
+                    onChange={props.heandleInputChange}
+                    value={props.searchTerm}
+                    name="searchTerm"
+
+                    type="text"
+                    id="searchTerm"
+                    placeholder="Denver, CO OR Statue of Liberty OR 80112" />
                 <Button>Search</Button>
             </FormGroup>
         </FormWrapper>
