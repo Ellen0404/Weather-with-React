@@ -9,6 +9,9 @@ export default {
             .then(res => {
                 // console.log(res);
                 // you can rename the value from the axios responce like this lng:lon;
+                if (!res.data.results.length) {
+                    return alert("Not a valid location!")
+                }
                 const { lat, lng: lon } = res.data.results[0].geometry.location;
                 return axios.get(`https://api.weatherbit.io/v2.0/forecast/daily?lat=${lat}&lon=${lon}&units=I&days=7&key=${weatherKey}
                 `) // im gonna use the callback inside my useEffect in App.js insted of here!

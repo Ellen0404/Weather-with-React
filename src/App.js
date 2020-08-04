@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, } from "reactstrap";
 import moment from "moment";
-import sampleData from "./data/sample.json";
 import SearchBar from "./components/SearchBar";
 import DayDetails from "./components/DayDetails";
 import DayCard from "./components/DayCard";
@@ -12,33 +11,45 @@ const App = () => {
   const [weatherinfo, setWeatherInfo] = useState({
     searchTerm: "",
     selectedDay: null,
-    days: sampleData.data,
-    location: "Denver, CO",
-    // days: [],
-    // location: ""
+    days: [],
+    location: ""
 
   });
 
   const { searchTerm, selectedDay, days, location } = weatherinfo;
 
   useEffect(() => {
-    API.getWeather("Mount Rushmore")
-      .then(res => {
-        setWeatherInfo({
-          searchTerm: "",
-          selectedDay: null,
-          days: res.data.data,
-          location: res.data.city_name + ", " + res.data.state_code
-        })
-      }) //use the callback here ! instesd of use in in API.js
-      .catch(err => console.log(err));
+    getWeather("Denver, CO")
   }, []);
 
-  const heandleInputChange = event => {
+  const getWeather = location => {
+    if (!location) {
+      return alert("No location provided");
+    }
+    API.getWeather(location)
+      .then(res => {
+        if (res) {
+          setWeatherInfo({
+            searchTerm: "",
+            selectedDay: null,
+            days: res.data.data,
+            location: res.data.city_name + ", " + res.data.state_code
+          })
+        }
+      }) //use the callback here ! instesd of use in in API.js
+      .catch(err => console.log(err));
+  }
+
+  const handleInputChange = event => {
     // name=> WHICH state value you want to change 
     // value=> WHAT  I want to set it to
     const { name, value } = event.target;
     setWeatherInfo({ ...weatherinfo, [name]: value })
+  }
+
+  const handleFormSubmit = event => {
+    event.preventDefault();
+    getWeather(searchTerm);
   }
   return (
     <Container>
@@ -49,7 +60,8 @@ const App = () => {
         <Col md={5}>
           <SearchBar
             searchTerm={searchTerm}
-            heandleInputChange={heandleInputChange}
+            handleInputChange={handleInputChange}
+            handleFormSubmit={handleFormSubmit}
           />
         </Col>
       </Row>
