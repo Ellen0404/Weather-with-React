@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, } from "reactstrap";
+import { MainWrapper } from "./styles";
 import moment from "moment";
 import SearchBar from "./components/SearchBar";
 import DayDetails from "./components/DayDetails";
@@ -27,7 +28,9 @@ const App = () => {
       return alert("No location provided");
     }
     API.getWeather(location)
+
       .then(res => {
+        console.log(res)
         if (res) {
           setWeatherInfo({
             searchTerm: "",
@@ -52,7 +55,7 @@ const App = () => {
     getWeather(searchTerm);
   }
   return (
-    <Container>
+    <MainWrapper>
       <Row>
         <Col md={7}>
           <h1>Weather Info for {location}</h1>
@@ -92,6 +95,7 @@ const App = () => {
               high={selectedDay.high_temp}
               low={selectedDay.low_temp}
               precip={selectedDay.pop}
+              uv={selectedDay.uv}
             />
           ) : (
               <h3>Click on a day above to view details!</h3>
@@ -99,7 +103,7 @@ const App = () => {
         </Col>
       </Row>
 
-    </Container>
+    </MainWrapper>
   );
 }
 

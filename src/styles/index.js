@@ -1,18 +1,23 @@
 import styled from "styled-components";
-import { Form, Card } from "reactstrap";
+import { Form, Card, Container } from "reactstrap";
 
 
-const teal = "#008080";
+const teal = "#094b50";
 const gray = "#ccc";
-const border = `2px solid ${gray}`;
+const orange = "#d86736"
+const orangeborder = `4px solid orange`;
 const tealborder = `2px solid ${teal}`;
 
+export const MainWrapper = styled(Container)`
+background-image:white;
+`
 // put element name after styled. 
 export const CardWrapper = styled.article`
 :hover{
     cursor:pointer;
     .card{
-        border-color:${teal}
+        border:${tealborder};
+        background:${teal}
     }
 }
 text-align:center;
@@ -24,13 +29,17 @@ img{
     background-color:orange; 
 }
 .card-header{
-    background-color: ${props => props.isSelected ? teal : gray}; 
+    background-color: ${props => props.isSelected ? teal : orange}; 
     color: ${props => props.isSelected ? "white" : "#212529"};
     font-weight:800;
     padding: .75rem;
 }
 .card-body{
     padding:1.25rem .5rem;
+    background-color: ${props => props.isSelected ? teal : orange}; 
+    p,h2,h3{
+        color:${props => props.isSelected ? "white" : "black"};
+        }
 }
 `
 
@@ -38,8 +47,10 @@ img{
 //component we put this component name inside ()
 //insted of just puting an element name after styled.
 
-export const DetailsWrapper = styled(Card)` 
-border: ${tealborder};
+export const DetailsWrapper = styled(Card)`
+
+background-color: ${teal};
+border: ${orangeborder};
 text-align:center;
 padding: 1rem;
 margin: 1.5rem 0;
@@ -48,9 +59,13 @@ img{
     margin:0 auto;
 
 }
+p,h2,h3{
+color:white;
+}
 `
 
 export const FormWrapper = styled(Form)`
+
 input.form-control{
     width:350px;
 }
